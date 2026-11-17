@@ -27,8 +27,7 @@ npm run dev                  # https://localhost:3000
 - `src/synq.config.ts` and `src/app/api/auth/[...synq]/route.ts`: the one configuration and the route mount, which signs people in and out and keeps the session in a sealed, HttpOnly cookie.
 - `src/proxy.ts`: refreshes a session that's due, and sends anyone signed out from `/account` to sign in.
 - `src/app/account/page.tsx`: who's signed in (`synq.me()`, read on the server), adding a passkey, and signing out.
-
-The app keeps its session in a cookie, which suits one server process. On Vercel or any host with several processes, give it a session store: see the guide's [step 8](https://docs.synq.build/getting-started/nextjs#8-more-than-one-server-process-use-a-store).
+- `src/lib/session-store.ts`: where sessions live. In their sealed cookie by default, which suits one server process, as `npm run dev` runs. Set `REDIS_URL` for a Redis or Valkey of your own, or `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` for Upstash, and sessions live there, with one lock per session that every process shares. On Vercel, add Redis (Upstash) from the Marketplace, which sets the variables the Upstash store reads. A host with several processes needs one of the two: `synqAuth()` refuses the cookie there. [Choose a session store](https://docs.synq.build/guides/session-stores) has the others: Cloudflare and Postgres.
 
 ## Learn more
 
