@@ -1,0 +1,11 @@
+node_modules/
+# What Expo makes: the native projects (expo prebuild / expo run:android),
+# its caches, the exported bundle and local APKs.
+/android/
+/ios/
+/.expo/
+/dist/
+/expo-env.d.ts
+*.apk
+.env*
+!.env.example
